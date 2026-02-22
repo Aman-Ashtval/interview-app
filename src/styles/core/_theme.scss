@@ -1,0 +1,229 @@
+:root {
+    --navbar-height: 56px;
+    --navbar-z-index: 100000;
+}
+
+// Default theme (light) – applied when data-theme is "light" or "".
+// Switch to dark by setting <html data-theme="dark"> (theme logic can be added later).
+[data-theme="light"],
+[data-theme=""] {
+    --background-color: #ffffff;
+    --text-primary-color: #8e8ea9;
+    --active-color: #d26300;
+    --active-color-hover: #b85800;
+    --border-color: #eeeef2;
+    --text-black-color: #09090b;
+    --text-dark-color: #232529;
+    --text-grey-100: #717171;
+    --text-white-color: #ffffff;
+    --divider-color: #eeeff1;
+    --error-text-color: #dc2626;
+    --text-success-color: #34c759;
+    --text-danger-color: #ff3b30;
+
+    //primary button
+    --button-primary: #d26300;
+    --button-primary-text: #ffffff;
+    --button-primary-pressed: #d26300;
+    --button-primary-hover: #d26300;
+    --button-primary-disabled: #eeeef2;
+    --button-primary-text-disabled: #8e8ea9;
+
+    //seconday button
+    --button-secondary: #ffffff;
+    --button-secondary-text: #09090b;
+    --button-secondary-stroke: #eeeef2;
+    --button-secondary-pressed: #f8f9fa;
+    --button-secondary-disabled: #f8f9fa;
+    --button-secondary-text-disabled: #8e8ea9;
+
+    //tertiary button
+    --button-tertiary: #fcece7;
+    --button-tertiary-text: #d26300;
+    --button-tertiary-disabled: #eeeef2;
+    --button-tertiary-text-disabled: #8e8ea9;
+    --button-tertiary-hover: #fcece7;
+    --button-tertiary-pressed: #fcece7;
+
+    //alert button
+    --button-alert: #fa5757;
+    --button-alert-text: #fafafa;
+    --button-alert-disabled: #fafafa;
+    --button-alert-text-disabled: #fafafa;
+    --button-alert-hover: #fa5757;
+    --button-alert-pressed: #fa5757;
+
+    //Bg_Secondary button
+    --button-bg-secondary: #eeeef2;
+    --button-bg-secondary-text: #09090b;
+    --button-bg-secondary-disabled: #eeeef2;
+    --button-bg-secondary-text-disabled: #09090b;
+    --button-bg-secondary-hover: #eeeef2;
+    --button-bg-secondary-pressed: #eeeef2;
+
+    //input box
+    --input-box-border: #eeeef2;
+    --input-box-label-text-color: #717171;
+
+    //dropdown component
+    --hovered--list-item-bg-color: #fdf5f1;
+    --keyboard-selected-list-item-bg-color: #fbebe3;
+    --hovered--list-item-text-color: #d26300;
+    --selected--list-item-bg-color: #ffffff;
+
+    //switch
+    --switch-border-color: #eeeef2;
+    --switch-background-color: #ffffff;
+    --switch-selected-bg-color: #d26300;
+    --switch-unselected-hover-color: #fbebe3;
+
+    //toggle
+    --toggle--bg-color-active: #d26300;
+    --toggle--bg-color-inactive: #e7e7e8;
+    --toggle-circle-color-active: #ffffff;
+    --toggle-circle-color-inactive: #d26300;
+    --toggle-bg-color-disabled: #fbebe3;
+    --toggle-circle-bg-color-disabled: #fbebe3;
+
+    //table
+    --table-border-color: #eeeef2;
+
+    //chip
+    --chip-background-color: #fbebe3;
+    --chip-text-color: #d26300;
+
+    //range slider
+    --range-slider-active-color: #d26300;
+    --range-slider-bg-color: #eeeef2;
+    --range-slider-thumb-bg-color: #fcece7;
+
+    //text colors
+    --text-primary: #8e8ea9;
+    --text-black: #09090b;
+    --text-active: #d26300;
+    --text-placeholder: #717171;
+    --text-success: #34c759;
+    --text-danger: #ff3b30;
+    --text-white: #ffffff;
+
+    // Sign-in / auth panel (left hero)
+    --signin-hero-bg-start: #0f172a;
+    --signin-hero-bg-mid: #1e1b4b;
+    --signin-hero-bg-end: #4c1d95;
+    --signin-hero-text: #ffffff;
+    --signin-hero-text-muted: rgba(255, 255, 255, 0.8);
+    --signin-hero-overlay: rgba(255, 255, 255, 0.06);
+
+    // Sign-in form (right panel)
+    --signin-form-bg: #ffffff;
+    --signin-form-title-color: #09090b;
+    --signin-form-muted-color: #64748b;
+    --signin-form-label-color: #334155;
+    --signin-form-input-bg: #ffffff;
+    --signin-form-social-btn-bg: #ffffff;
+    --signin-form-social-btn-hover-bg: #f8fafc;
+    --signin-form-social-btn-border-hover: #cbd5e1;
+    --signin-form-focus-ring: rgba(210, 99, 0, 0.15);
+
+    // Message (alert) feedback
+    --message-error-bg: #fef2f2;
+    --message-error-text: #b91c1c;
+    --message-success-bg: #f0fdf4;
+    --message-success-text: #166534;
+}
+
+[data-theme="dark"] {
+    --background-color: #202020;
+    --text-primary-color: #8e8ea9;
+    --active-color: #d26300;
+    --active-color-hover: #e56b00;
+    --border-color: #3f3f46;
+    --text-black-color: #09090b;
+    --text-grey-100: #717171;
+    --text-white-color: #ffffff;
+    --divider-color: #eeeff1;
+
+    //primary button
+    --button-primary: #d26300;
+    --button-primary-text: #ffffff;
+    --button-primary-pressed: #d26300;
+    --button-primary-hover: #d26300;
+    --button-primary-disabled: #eeeef2;
+    --button-primary-text-disabled: #8e8ea9;
+
+    //seconday button
+    --button-secondary: #ffffff;
+    --button-secondary-text: #09090b;
+    --button-secondary-stroke: #eeeef2;
+    --button-secondary-pressed: #f8f9fa;
+    --button-primary-disabled: #f8f9fa;
+    --button-primary-text-disabled: #8e8ea9;
+
+    //search box
+    --search-box-border: #eeeef2;
+
+    //dropdown component
+    --hovered--list-item-bg-color: #fbebe3;
+    --hovered--list-item-text-color: #d26300;
+    --selected--list-item-bg-color: #ffffff;
+
+    //switch
+    --switch-border-color: #eeeef2;
+    --switch-background-color: #ffffff;
+    --switch-selected-bg-color: #d26300;
+    --switch-unselected-hover-color: #fbebe3;
+
+    //toggle
+    --toggle--bg-color-active: #d26300;
+    --toggle--bg-color-inactive: grey;
+    --toggle-circle-color-active: #ffffff;
+    --toggle-circle-color-inactive: #d26300;
+    --toggle-bg-color-disabled: #fbebe3;
+    --toggle-circle-bg-color-disabled: #fbebe3;
+
+    //table
+    --table-border-color: #eeeef2;
+
+    //chip
+    --chip-background-color: #fbebe3;
+    --chip-text-color: #d26300;
+
+    //range slider
+    --range-slider-active-color: #d26300;
+    --range-slider-bg-color: #eeeef2;
+    --range-slider-thumb-bg-color: #fcece7;
+
+    //text colors
+    --text-primary: #8e8ea9;
+    --text-black: #09090b;
+    --text-active: #d26300;
+    --text-placeholder: #717171;
+    --text-success: #34c759;
+    --text-danger: #ff3b30;
+    --text-white: #ffffff;
+
+    // Sign-in / auth panel (left hero)
+    --signin-hero-bg-start: #0f172a;
+    --signin-hero-bg-mid: #1e1b4b;
+    --signin-hero-bg-end: #4c1d95;
+    --signin-hero-text: #ffffff;
+    --signin-hero-text-muted: rgba(255, 255, 255, 0.8);
+    --signin-hero-overlay: rgba(255, 255, 255, 0.06);
+
+    // Sign-in form (right panel)
+    --signin-form-bg: #202020;
+    --signin-form-title-color: #fafafa;
+    --signin-form-muted-color: #a1a1aa;
+    --signin-form-label-color: #d4d4d8;
+    --signin-form-input-bg: #202020;
+    --signin-form-social-btn-bg: #2a2a2a;
+    --signin-form-social-btn-hover-bg: #3f3f46;
+    --signin-form-social-btn-border-hover: #52525b;
+    --signin-form-focus-ring: rgba(210, 99, 0, 0.25);
+
+    // Message (alert) feedback
+    --message-error-bg: #450a0a;
+    --message-error-text: #fecaca;
+    --message-success-bg: #052e16;
+    --message-success-text: #86efac;
+}

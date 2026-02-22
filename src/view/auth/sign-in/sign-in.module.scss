@@ -1,0 +1,434 @@
+// =============================================================================
+// Sign-in module: layout & spacing only (colors from theme: core/_theme.scss)
+// =============================================================================
+
+// Breakpoints (mobile-first where possible)
+$signin-breakpoint-sm: 480px;
+$signin-breakpoint-md: 768px;
+$signin-breakpoint-md-down: 767px;
+$signin-breakpoint-lg: 1024px;
+$signin-touch-min: 44px;
+
+$signin-radius: 8px;
+$signin-radius-lg: 12px;
+$signin-transition: 0.15s ease;
+$signin-transition-hover: 200ms ease-in-out;
+
+// Typography (sizes only)
+$signin-font-size-sm: 0.75rem;
+$signin-font-size-base: 0.875rem;
+$signin-font-size-lg: 1rem;
+$signin-font-size-xl: 1.5rem;
+$signin-font-size-headline: clamp(1.75rem, 4vw, 2.5rem);
+
+// Spacing
+$signin-space-1: 0.25rem;
+$signin-space-2: 0.375rem;
+$signin-space-3: 0.5rem;
+$signin-space-4: 0.75rem;
+$signin-space-5: 1rem;
+$signin-space-6: 1.5rem;
+$signin-space-8: 2rem;
+$signin-space-12: 3rem;
+
+// =============================================================================
+// BEM-like structure: parent-con > main-con > nested elements
+// =============================================================================
+
+.signin__parent-con {
+  padding: 0 24px;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+  border-bottom: 1px solid var(--border-color);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+
+  @media (min-width: $signin-breakpoint-md) {
+    padding: 0 40px;
+  }
+
+  @media (min-width: $signin-breakpoint-lg) {
+    padding: 0 60px;
+  }
+
+  .signin__main-con {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    @media (max-width: $signin-breakpoint-md-down) {
+      flex-direction: column;
+    }
+  }
+
+  .signin__main-con .signin__left-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $signin-space-6 $signin-space-5;
+    width: 100%;
+    min-width: 0; // allow shrink in flex
+    background: linear-gradient(180deg, var(--signin-hero-bg-start) 0%, var(--signin-hero-bg-mid) 50%, var(--signin-hero-bg-end) 100%);
+
+    @media (max-width: $signin-breakpoint-md-down) {
+      padding: $signin-space-6 $signin-space-4;
+      min-height: 35vh;
+      min-height: 35dvh;
+    }
+
+    @media (min-width: $signin-breakpoint-md) {
+      padding: $signin-space-8 $signin-space-6;
+    }
+
+    @media (min-width: $signin-breakpoint-lg) {
+      padding: $signin-space-8 $signin-space-12;
+    }
+
+    .signin__logo {
+      width: 40px;
+      height: 32px;
+      display: flex;
+      gap: 2px;
+      align-items: flex-end;
+      user-select: none;
+
+      span {
+        display: block;
+        height: 100%;
+        width: 8px;
+        background: var(--signin-hero-text);
+        border-radius: 2px;
+
+        &:nth-child(1) { height: 60%; }
+        &:nth-child(2) { height: 100%; }
+        &:nth-child(3) { height: 80%; }
+      }
+    }
+
+    .signin__headline-text {
+      margin: 0;
+      font-size: clamp(1.25rem, 5vw, $signin-font-size-headline);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--signin-hero-text);
+      letter-spacing: -0.02em;
+      transition: color $signin-transition-hover;
+    }
+
+    .signin__subheadline-text {
+      margin-top: $signin-space-3;
+      font-size: clamp(0.875rem, 2vw, $signin-font-size-lg);
+      color: var(--signin-hero-text-muted);
+      max-width: 28ch;
+      transition: color $signin-transition-hover;
+
+      @media (max-width: $signin-breakpoint-sm) {
+        max-width: none;
+      }
+    }
+
+    .signin__image-wrapper {
+      margin-top: $signin-space-5;
+      flex: 1;
+      min-height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $signin-radius-lg;
+      overflow: hidden;
+      background: var(--signin-hero-overlay);
+
+      @media (min-width: $signin-breakpoint-md) {
+        margin-top: $signin-space-8;
+        min-height: 200px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .signin__image-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: $signin-space-4;
+        padding: $signin-space-4;
+        text-align: center;
+        color: var(--signin-hero-text-muted);
+
+        @media (min-width: $signin-breakpoint-md) {
+          gap: $signin-space-6;
+          padding: $signin-space-8;
+        }
+      }
+
+      .signin__image-placeholder-icon {
+        width: 3rem;
+        height: 3rem;
+        flex-shrink: 0;
+
+        @media (min-width: $signin-breakpoint-md) {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+
+      .signin__image-placeholder-title {
+        font-size: $signin-font-size-base;
+        font-weight: 500;
+      }
+
+      .signin__image-placeholder-hint {
+        font-size: $signin-font-size-sm;
+        max-width: 12.5rem;
+      }
+    }
+  }
+
+  .signin__main-con .signin__right-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $signin-space-5 $signin-space-4;
+    padding-bottom: max($signin-space-5, env(safe-area-inset-bottom));
+    width: 100%;
+    min-width: 0;
+    background: var(--signin-form-bg);
+    border-left: 1px solid var(--border-color);
+
+    @media (max-width: $signin-breakpoint-md-down) {
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      padding: $signin-space-6 $signin-space-4;
+    }
+
+    @media (min-width: $signin-breakpoint-md) {
+      padding: $signin-space-8;
+    }
+
+    .signin__form-card {
+      width: 100%;
+      max-width: 380px;
+      min-width: 0;
+    }
+
+    .signin__title-text {
+      margin: 0 0 $signin-space-1;
+      font-size: clamp(1.25rem, 4vw, $signin-font-size-xl);
+      font-weight: 700;
+      color: var(--signin-form-title-color);
+      transition: color $signin-transition-hover;
+    }
+
+    .signin__subtitle-text {
+      margin: 0 0 $signin-space-5;
+      font-size: $signin-font-size-base;
+      color: var(--signin-form-muted-color);
+      transition: color $signin-transition-hover;
+
+      @media (min-width: $signin-breakpoint-md) {
+        margin-bottom: $signin-space-6;
+      }
+    }
+
+    .signin__social-row {
+      display: flex;
+      gap: $signin-space-4;
+      margin-bottom: $signin-space-6;
+    }
+
+    .signin__social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $signin-space-3;
+      min-height: $signin-touch-min;
+      padding: $signin-space-4 $signin-space-5;
+      font-size: $signin-font-size-base;
+      font-weight: 500;
+      color: var(--signin-form-label-color);
+      background: var(--signin-form-social-btn-bg);
+      border: 1px solid var(--border-color);
+      border-radius: $signin-radius;
+      cursor: pointer;
+      transition: background-color $signin-transition-hover, border-color $signin-transition-hover;
+
+      &:hover:not(:disabled) {
+        background-color: var(--signin-form-social-btn-hover-bg);
+        border-color: var(--signin-form-social-btn-border-hover);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .signin__social-btn-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex-shrink: 0;
+      }
+    }
+
+    .signin__or-divider {
+      display: flex;
+      align-items: center;
+      gap: $signin-space-5;
+      margin-bottom: $signin-space-6;
+
+      &::before,
+      &::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background-color: var(--border-color);
+      }
+
+      span {
+        font-size: $signin-font-size-sm;
+        font-weight: 500;
+        color: var(--signin-form-muted-color);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+
+    .signin__form {
+      display: flex;
+      flex-direction: column;
+      gap: $signin-space-5;
+    }
+
+    .signin__input-group {
+      display: flex;
+      flex-direction: column;
+      gap: $signin-space-2;
+    }
+
+    .signin__label {
+      font-size: $signin-font-size-base;
+      font-weight: 500;
+      color: var(--signin-form-label-color);
+    }
+
+    .signin__input {
+      width: 100%;
+      min-height: $signin-touch-min;
+      padding: $signin-space-4 $signin-space-5;
+      font-size: 16px; // prevents zoom on focus in iOS
+      color: var(--signin-form-title-color);
+      background: var(--signin-form-input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: $signin-radius;
+      outline: none;
+      transition: border-color $signin-transition, box-shadow $signin-transition, color $signin-transition-hover;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: var(--text-placeholder);
+      }
+
+      &:focus {
+        border-color: var(--active-color);
+        box-shadow: 0 0 0 3px var(--signin-form-focus-ring);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      @media (min-width: $signin-breakpoint-md) {
+        font-size: $signin-font-size-base;
+      }
+    }
+
+    .signin__primary-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: $signin-touch-min;
+      padding: $signin-space-4 $signin-space-5;
+      font-size: $signin-font-size-base;
+      font-weight: 600;
+      color: var(--button-primary-text);
+      background: var(--button-primary);
+      border: none;
+      border-radius: $signin-radius;
+      cursor: pointer;
+      transition: background-color $signin-transition-hover;
+      box-sizing: border-box;
+
+      &:hover:not(:disabled) {
+        background-color: var(--button-primary-hover);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .signin__message {
+      padding: $signin-space-4 $signin-space-5;
+      font-size: $signin-font-size-base;
+      border-radius: $signin-radius;
+      transition: background-color $signin-transition-hover, color $signin-transition-hover;
+
+      &--error {
+        background-color: var(--message-error-bg);
+        color: var(--message-error-text);
+      }
+
+      &--success {
+        background-color: var(--message-success-bg);
+        color: var(--message-success-text);
+      }
+    }
+
+    .signin__legal {
+      margin-top: $signin-space-6;
+      font-size: $signin-font-size-sm;
+      color: var(--signin-form-muted-color);
+      line-height: 1.5;
+
+      a {
+        color: var(--active-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color $signin-transition-hover;
+
+        &:hover {
+          color: var(--active-color-hover);
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .signin__back-link {
+      display: inline-block;
+      margin-top: $signin-space-5;
+      font-size: $signin-font-size-base;
+      font-weight: 500;
+      color: var(--active-color);
+      text-decoration: none;
+      transition: color $signin-transition-hover;
+
+      &:hover {
+        color: var(--active-color-hover);
+      }
+    }
+  }
+}
