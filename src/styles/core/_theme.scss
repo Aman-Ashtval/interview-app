@@ -1,229 +1,209 @@
 :root {
-    --navbar-height: 56px;
-    --navbar-z-index: 100000;
+  --navbar-height: 64px;
+  --navbar-z-index: 100000;
 }
 
-// Default theme (light) – applied when data-theme is "light" or "".
-// Switch to dark by setting <html data-theme="dark"> (theme logic can be added later).
+// -----------------------------------------------------------------------------
+// Primary palette (#4c1d95)
+// -----------------------------------------------------------------------------
+$primary: #4c1d95;
+$primary-hover: #3d1768;
+$primary-text-on: #ffffff;
+
+// -----------------------------------------------------------------------------
+// Light theme
+// -----------------------------------------------------------------------------
 [data-theme="light"],
 [data-theme=""] {
-    --background-color: #ffffff;
-    --text-primary-color: #8e8ea9;
-    --active-color: #d26300;
-    --active-color-hover: #b85800;
-    --border-color: #eeeef2;
-    --text-black-color: #09090b;
-    --text-dark-color: #232529;
-    --text-grey-100: #717171;
-    --text-white-color: #ffffff;
-    --divider-color: #eeeff1;
-    --error-text-color: #dc2626;
-    --text-success-color: #34c759;
-    --text-danger-color: #ff3b30;
+  --primary-color: #{$primary};
+  --primary-color-hover: #{$primary-hover};
+  --primary-color-text: #{$primary-text-on};
+  --text-black: #09090b;
+  --text-gray: #717171;
 
-    //primary button
-    --button-primary: #d26300;
-    --button-primary-text: #ffffff;
-    --button-primary-pressed: #d26300;
-    --button-primary-hover: #d26300;
-    --button-primary-disabled: #eeeef2;
-    --button-primary-text-disabled: #8e8ea9;
+  // Buttons – primary uses theme primary
+  --button-primary: #{$primary};
+  --button-primary-text: #{$primary-text-on};
+  --button-primary-hover: #{$primary-hover};
+  --button-primary-pressed: #{$primary-hover};
+  --button-primary-disabled: #eeeef2;
+  --button-primary-text-disabled: #8e8ea9;
 
-    //seconday button
-    --button-secondary: #ffffff;
-    --button-secondary-text: #09090b;
-    --button-secondary-stroke: #eeeef2;
-    --button-secondary-pressed: #f8f9fa;
-    --button-secondary-disabled: #f8f9fa;
-    --button-secondary-text-disabled: #8e8ea9;
+  // Buttons – secondary, tertiary, alert, bg-secondary
+  --button-secondary: #ffffff;
+  --button-secondary-text: #09090b;
+  --button-secondary-stroke: #eeeef2;
+  --button-secondary-pressed: #f8f9fa;
+  --button-secondary-disabled: #f8f9fa;
+  --button-secondary-text-disabled: #8e8ea9;
 
-    //tertiary button
-    --button-tertiary: #fcece7;
-    --button-tertiary-text: #d26300;
-    --button-tertiary-disabled: #eeeef2;
-    --button-tertiary-text-disabled: #8e8ea9;
-    --button-tertiary-hover: #fcece7;
-    --button-tertiary-pressed: #fcece7;
+  --button-tertiary: #f3e8ff;
+  --button-tertiary-text: #{$primary};
+  --button-tertiary-disabled: #eeeef2;
+  --button-tertiary-text-disabled: #8e8ea9;
+  --button-tertiary-hover: #f3e8ff;
+  --button-tertiary-pressed: #ede9fe;
 
-    //alert button
-    --button-alert: #fa5757;
-    --button-alert-text: #fafafa;
-    --button-alert-disabled: #fafafa;
-    --button-alert-text-disabled: #fafafa;
-    --button-alert-hover: #fa5757;
-    --button-alert-pressed: #fa5757;
+  --button-alert: #dc2626;
+  --button-alert-text: #ffffff;
+  --button-alert-disabled: #fafafa;
+  --button-alert-text-disabled: #8e8ea9;
+  --button-alert-hover: #b91c1c;
+  --button-alert-pressed: #b91c1c;
 
-    //Bg_Secondary button
-    --button-bg-secondary: #eeeef2;
-    --button-bg-secondary-text: #09090b;
-    --button-bg-secondary-disabled: #eeeef2;
-    --button-bg-secondary-text-disabled: #09090b;
-    --button-bg-secondary-hover: #eeeef2;
-    --button-bg-secondary-pressed: #eeeef2;
+  --button-success: #059669;
+  --button-success-text: #ffffff;
+  --button-success-hover: #047857;
 
-    //input box
-    --input-box-border: #eeeef2;
-    --input-box-label-text-color: #717171;
+  --button-bg-secondary: #eeeef2;
+  --button-bg-secondary-text: #09090b;
+  --button-bg-secondary-disabled: #eeeef2;
+  --button-bg-secondary-text-disabled: #8e8ea9;
+  --button-bg-secondary-hover: #e4e4e7;
+  --button-bg-secondary-pressed: #e4e4e7;
 
-    //dropdown component
-    --hovered--list-item-bg-color: #fdf5f1;
-    --keyboard-selected-list-item-bg-color: #fbebe3;
-    --hovered--list-item-text-color: #d26300;
-    --selected--list-item-bg-color: #ffffff;
+  // Active / focus (links, focus ring) – use primary
+  --active-color: #{$primary};
+  --active-color-hover: #{$primary-hover};
 
-    //switch
-    --switch-border-color: #eeeef2;
-    --switch-background-color: #ffffff;
-    --switch-selected-bg-color: #d26300;
-    --switch-unselected-hover-color: #fbebe3;
+  // Layout & surfaces
+  --background-color: #ffffff;
+  --background: #ffffff;
+  --text-primary-color: #8e8ea9;
+  --text-black-color: #09090b;
+  --text-dark-color: #232529;
+  --text-grey-100: #717171;
+  --text-white: #ffffff;
+  --border-color: #eeeef2;
+  --divider-color: #eeeff1;
 
-    //toggle
-    --toggle--bg-color-active: #d26300;
-    --toggle--bg-color-inactive: #e7e7e8;
-    --toggle-circle-color-active: #ffffff;
-    --toggle-circle-color-inactive: #d26300;
-    --toggle-bg-color-disabled: #fbebe3;
-    --toggle-circle-bg-color-disabled: #fbebe3;
+  // Text semantic
+  --text-primary: #8e8ea9;
+  --text-black: #09090b;
+  --text-active: #{$primary};
+  --text-placeholder: #717171;
+  --text-success: #059669;
+  --text-danger: #dc2626;
 
-    //table
-    --table-border-color: #eeeef2;
+  // Dropdown / list hover
+  --hovered--list-item-bg-color: #f3e8ff;
+  --hovered--list-item-text-color: #{$primary};
+  --keyboard-selected-list-item-bg-color: #ede9fe;
+  --selected--list-item-bg-color: #ffffff;
 
-    //chip
-    --chip-background-color: #fbebe3;
-    --chip-text-color: #d26300;
+  // Sign-in
+  --signin-hero-gradient-start: #0b0f2a;
+  --signin-hero-gradient-mid1: #1b1f4b;
+  --signin-hero-gradient-mid2: #3a2f7a;
+  --signin-hero-gradient-end: #6b3fd6;
+  --signin-form-bg: #ffffff;
+  --signin-form-title-color: #09090b;
+  --signin-form-muted-color: #64748b;
+  --signin-form-label-color: #334155;
+  --signin-form-input-bg: #ffffff;
+  --signin-form-social-btn-bg: #ffffff;
+  --signin-form-social-btn-hover-bg: #f8fafc;
+  --signin-form-social-btn-border-hover: #cbd5e1;
+  --signin-form-focus-ring: rgba(76, 29, 149, 0.2);
+  --message-error-bg: #fef2f2;
+  --message-error-text: #b91c1c;
+  --message-success-bg: #f0fdf4;
+  --message-success-text: #166534;
+  --message-success-icon-bg: #d1fae5;
+  --message-success-icon-color: #059669;
 
-    //range slider
-    --range-slider-active-color: #d26300;
-    --range-slider-bg-color: #eeeef2;
-    --range-slider-thumb-bg-color: #fcece7;
-
-    //text colors
-    --text-primary: #8e8ea9;
-    --text-black: #09090b;
-    --text-active: #d26300;
-    --text-placeholder: #717171;
-    --text-success: #34c759;
-    --text-danger: #ff3b30;
-    --text-white: #ffffff;
-
-    // Sign-in / auth panel (left hero)
-    --signin-hero-bg-start: #0f172a;
-    --signin-hero-bg-mid: #1e1b4b;
-    --signin-hero-bg-end: #4c1d95;
-    --signin-hero-text: #ffffff;
-    --signin-hero-text-muted: rgba(255, 255, 255, 0.8);
-    --signin-hero-overlay: rgba(255, 255, 255, 0.06);
-
-    // Sign-in form (right panel)
-    --signin-form-bg: #ffffff;
-    --signin-form-title-color: #09090b;
-    --signin-form-muted-color: #64748b;
-    --signin-form-label-color: #334155;
-    --signin-form-input-bg: #ffffff;
-    --signin-form-social-btn-bg: #ffffff;
-    --signin-form-social-btn-hover-bg: #f8fafc;
-    --signin-form-social-btn-border-hover: #cbd5e1;
-    --signin-form-focus-ring: rgba(210, 99, 0, 0.15);
-
-    // Message (alert) feedback
-    --message-error-bg: #fef2f2;
-    --message-error-text: #b91c1c;
-    --message-success-bg: #f0fdf4;
-    --message-success-text: #166534;
+  // Selection
+  --selection-bg: #f3e8ff;
+  --selection-text: #09090b;
 }
 
+// -----------------------------------------------------------------------------
+// Dark theme
+// -----------------------------------------------------------------------------
 [data-theme="dark"] {
-    --background-color: #202020;
-    --text-primary-color: #8e8ea9;
-    --active-color: #d26300;
-    --active-color-hover: #e56b00;
-    --border-color: #3f3f46;
-    --text-black-color: #09090b;
-    --text-grey-100: #717171;
-    --text-white-color: #ffffff;
-    --divider-color: #eeeff1;
+  --text-black: #fafafa;
+  --text-gray: #a1a1aa;
 
-    //primary button
-    --button-primary: #d26300;
-    --button-primary-text: #ffffff;
-    --button-primary-pressed: #d26300;
-    --button-primary-hover: #d26300;
-    --button-primary-disabled: #eeeef2;
-    --button-primary-text-disabled: #8e8ea9;
+  --primary-color: #a78bfa;
+  --primary-color-hover: #c4b5fd;
+  --primary-color-text: #09090b;
 
-    //seconday button
-    --button-secondary: #ffffff;
-    --button-secondary-text: #09090b;
-    --button-secondary-stroke: #eeeef2;
-    --button-secondary-pressed: #f8f9fa;
-    --button-primary-disabled: #f8f9fa;
-    --button-primary-text-disabled: #8e8ea9;
+  --button-primary: #a78bfa;
+  --button-primary-text: #09090b;
+  --button-primary-hover: #c4b5fd;
+  --button-primary-pressed: #c4b5fd;
+  --button-primary-disabled: #3f3f46;
+  --button-primary-text-disabled: #71717a;
 
-    //search box
-    --search-box-border: #eeeef2;
+  --button-secondary: #27272a;
+  --button-secondary-text: #fafafa;
+  --button-secondary-stroke: #3f3f46;
+  --button-secondary-pressed: #3f3f46;
+  --button-secondary-disabled: #27272a;
+  --button-secondary-text-disabled: #71717a;
 
-    //dropdown component
-    --hovered--list-item-bg-color: #fbebe3;
-    --hovered--list-item-text-color: #d26300;
-    --selected--list-item-bg-color: #ffffff;
+  --button-tertiary: #3b2a5c;
+  --button-tertiary-text: #a78bfa;
+  --button-tertiary-disabled: #3f3f46;
+  --button-tertiary-text-disabled: #71717a;
+  --button-tertiary-hover: #4c3d6b;
+  --button-tertiary-pressed: #4c3d6b;
 
-    //switch
-    --switch-border-color: #eeeef2;
-    --switch-background-color: #ffffff;
-    --switch-selected-bg-color: #d26300;
-    --switch-unselected-hover-color: #fbebe3;
+  --button-alert: #dc2626;
+  --button-alert-text: #ffffff;
+  --button-alert-hover: #ef4444;
+  --button-alert-pressed: #ef4444;
 
-    //toggle
-    --toggle--bg-color-active: #d26300;
-    --toggle--bg-color-inactive: grey;
-    --toggle-circle-color-active: #ffffff;
-    --toggle-circle-color-inactive: #d26300;
-    --toggle-bg-color-disabled: #fbebe3;
-    --toggle-circle-bg-color-disabled: #fbebe3;
+  --button-success: #10b981;
+  --button-success-text: #ffffff;
+  --button-success-hover: #34d399;
 
-    //table
-    --table-border-color: #eeeef2;
+  --button-bg-secondary: #3f3f46;
+  --button-bg-secondary-text: #fafafa;
+  --button-bg-secondary-hover: #52525b;
+  --button-bg-secondary-pressed: #52525b;
 
-    //chip
-    --chip-background-color: #fbebe3;
-    --chip-text-color: #d26300;
+  --active-color: #a78bfa;
+  --active-color-hover: #c4b5fd;
 
-    //range slider
-    --range-slider-active-color: #d26300;
-    --range-slider-bg-color: #eeeef2;
-    --range-slider-thumb-bg-color: #fcece7;
+  --background-color: #18181b;
+  --background: #18181b;
+  --text-primary-color: #a1a1aa;
+  --text-black-color: #fafafa;
+  --border-color: #3f3f46;
+  --divider-color: #3f3f46;
 
-    //text colors
-    --text-primary: #8e8ea9;
-    --text-black: #09090b;
-    --text-active: #d26300;
-    --text-placeholder: #717171;
-    --text-success: #34c759;
-    --text-danger: #ff3b30;
-    --text-white: #ffffff;
+  --text-primary: #a1a1aa;
+  --text-black: #fafafa;
+  --text-active: #a78bfa;
+  --text-placeholder: #71717a;
+  --text-success: #34d399;
+  --text-danger: #f87171;
 
-    // Sign-in / auth panel (left hero)
-    --signin-hero-bg-start: #0f172a;
-    --signin-hero-bg-mid: #1e1b4b;
-    --signin-hero-bg-end: #4c1d95;
-    --signin-hero-text: #ffffff;
-    --signin-hero-text-muted: rgba(255, 255, 255, 0.8);
-    --signin-hero-overlay: rgba(255, 255, 255, 0.06);
+  --hovered--list-item-bg-color: #3b2a5c;
+  --hovered--list-item-text-color: #c4b5fd;
+  --selected--list-item-bg-color: #27272a;
 
-    // Sign-in form (right panel)
-    --signin-form-bg: #202020;
-    --signin-form-title-color: #fafafa;
-    --signin-form-muted-color: #a1a1aa;
-    --signin-form-label-color: #d4d4d8;
-    --signin-form-input-bg: #202020;
-    --signin-form-social-btn-bg: #2a2a2a;
-    --signin-form-social-btn-hover-bg: #3f3f46;
-    --signin-form-social-btn-border-hover: #52525b;
-    --signin-form-focus-ring: rgba(210, 99, 0, 0.25);
+  --signin-hero-gradient-start: #0b0f2a;
+  --signin-hero-gradient-mid1: #1b1f4b;
+  --signin-hero-gradient-mid2: #3a2f7a;
+  --signin-hero-gradient-end: #6b3fd6;
+  --signin-form-bg: #18181b;
+  --signin-form-title-color: #fafafa;
+  --signin-form-muted-color: #a1a1aa;
+  --signin-form-label-color: #d4d4d8;
+  --signin-form-input-bg: #27272a;
+  --signin-form-social-btn-bg: #27272a;
+  --signin-form-social-btn-hover-bg: #3f3f46;
+  --signin-form-social-btn-border-hover: #52525b;
+  --signin-form-focus-ring: rgba(167, 139, 250, 0.25);
+  --message-error-bg: #450a0a;
+  --message-error-text: #fecaca;
+  --message-success-bg: #052e16;
+  --message-success-text: #86efac;
+  --message-success-icon-bg: #064e3b;
+  --message-success-icon-color: #34d399;
 
-    // Message (alert) feedback
-    --message-error-bg: #450a0a;
-    --message-error-text: #fecaca;
-    --message-success-bg: #052e16;
-    --message-success-text: #86efac;
+  --selection-bg: #3b2a5c;
+  --selection-text: #fafafa;
 }

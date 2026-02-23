@@ -1,0 +1,114 @@
+// =============================================================================
+// Navbar – layout only, colors from theme (core/_theme.scss)
+// =============================================================================
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--navbar-height);
+  padding: 0px 60px;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: var(--navbar-z-index);
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    width: 180px;
+    height: 50px;
+  }
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 4px;
+}
+
+.navbar-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-black-color);
+  text-decoration: none;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--hovered--list-item-bg-color);
+    color: var(--hovered--list-item-text-color);
+  }
+}
+
+.navbar-link-active {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.navbar-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.user-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--button-bg-secondary);
+  color: var(--text-black-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--button-bg-secondary-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--active-color);
+    outline-offset: 2px;
+  }
+}
+
+.user-initial {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+}

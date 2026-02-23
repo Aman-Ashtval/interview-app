@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="520" height="140" viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6EE7FF"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5F3FF"/>
+      <stop offset="100%" stop-color="#BFD7FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Robot Head -->
+  <g transform="translate(10,10)">
+    <!-- headphones -->
+    <circle cx="50" cy="60" r="48" fill="none" stroke="#2563EB" stroke-width="10"/>
+    <!-- ears -->
+    <circle cx="2" cy="60" r="14" fill="#60A5FA"/>
+    <circle cx="98" cy="60" r="14" fill="#60A5FA"/>
+    <!-- head -->
+    <rect x="12" y="22" width="76" height="76" rx="26" fill="url(#headGrad)"/>
+    <!-- face -->
+    <rect x="26" y="36" width="48" height="48" rx="16" fill="#0B102A"/>
+    <!-- eyes -->
+    <circle cx="40" cy="58" r="5" fill="#67E8F9"/>
+    <circle cx="60" cy="58" r="5" fill="#67E8F9"/>
+    <!-- smile -->
+    <path d="M42 70 Q50 76 58 70" stroke="#67E8F9" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text -->
+  <text x="130" y="88" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" fill="url(#textGrad)">
+    Prepify
+  </text>
+</svg>

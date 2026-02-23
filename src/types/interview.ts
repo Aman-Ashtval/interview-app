@@ -3,7 +3,17 @@
  * Use these when you add Supabase tables (e.g. interviews, feedback) or API routes.
  */
 
-export type InterviewType = "technical" | "behavioral";
+export const VALID_INTERVIEW_TYPES = ["technical", "behavioral"] as const;
+export type InterviewType = (typeof VALID_INTERVIEW_TYPES)[number];
+
+export const INTERVIEW_TYPE_LABELS: Record<InterviewType, string> = {
+  technical: "Technical Interview",
+  behavioral: "Behavioral Interview",
+};
+
+export function isInterviewType(value: string): value is InterviewType {
+  return VALID_INTERVIEW_TYPES.includes(value as InterviewType);
+}
 
 export type InterviewSession = {
   id: string;

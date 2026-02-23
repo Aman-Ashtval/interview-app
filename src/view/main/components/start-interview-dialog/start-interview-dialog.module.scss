@@ -1,0 +1,73 @@
+// =============================================================================
+// Start Interview Dialog – layout and spacing, colors from theme
+// =============================================================================
+
+.dialog-content {
+  min-width: 480px;
+  max-width: 550px;
+  padding: 24px;
+  background-color: var(--background-color);
+  border-radius: 20px;
+}
+
+.dialog-header {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-black-color);
+  margin: 0 0 8px 0;
+}
+
+.dialog-description {
+  font-size: 0.875rem;
+  color: var(--text-grey-100);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-black-color);
+}
+
+.field-input {
+  width: 100%;
+}
+
+.field-textarea {
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px 12px;
+}
+
+.dialog-footer {
+  margin-top: 8px;
+  margin-bottom: 0;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-cancel {
+  min-width: 80px;
+}
+
+.btn-start {
+  min-width: 140px;
+}

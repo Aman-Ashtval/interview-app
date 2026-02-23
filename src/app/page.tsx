@@ -11,5 +11,5 @@ export default async function HomePage() {
     redirect("/dashboard");
   }
 
-  redirect("/auth/signin");
+  redirect("/auth/sign-in");
 }

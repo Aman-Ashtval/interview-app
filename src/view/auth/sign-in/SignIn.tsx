@@ -1,23 +1,16 @@
 "use client";
 
-import Link from "next/link";
+
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { SignInMessage } from "@/types";
+import { Button } from "@/components/ui/button/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import styles from "./sign-in.module.scss";
 import { cn } from "@/utils";
-
-export type SignInMessage = { type: "error" | "success"; text: string } | null;
-
-export type SignInViewProps = {
-  email: string;
-  setEmail: (value: string) => void;
-  loading: boolean;
-  message: SignInMessage;
-  onEmailSubmit: (e: React.FormEvent) => void;
-  onGoogleSignIn: () => void;
-  /** Optional: image src for the left panel (AI / app hero image) */
-  leftImageSrc?: string | null;
-  /** Optional: alt text for left panel image */
-  leftImageAlt?: string;
-};
 
 const GOOGLE_ICON_PATH = (
   <>
@@ -28,42 +21,100 @@ const GOOGLE_ICON_PATH = (
   </>
 );
 
-const LAPTOP_ICON_PATH = "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z";
+const ENVELOPE_ICON_PATH =
+  "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z";
 
-export function SignIn({
-  email,
-  setEmail,
-  loading,
-  message,
-  onEmailSubmit,
-  onGoogleSignIn,
-  leftImageSrc,
-  leftImageAlt = "AI Mock Interview",
-}: SignInViewProps) {
+export function SignIn() {
+  const searchParams = useSearchParams();
+  const errorParam = searchParams.get("error");
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<SignInMessage>(
+    errorParam === "auth" ? { type: "error", text: "Authentication failed. Please try again." } : null
+  );
+  const [sentToEmail, setSentToEmail] = useState<string | null>(null);
+
+  const supabase = createClient();
+  const showSuccess = message?.type === "success" && sentToEmail;
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+    setSentToEmail(null);
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        // data: name.trim()
+        //   ? { full_name: name.trim(), name: name.trim() }
+        //   : undefined,
+      },
+    });
+    setLoading(false);
+    if (error) {
+      setMessage({ type: "error", text: error.message });
+      return;
+    }
+    setSentToEmail(email);
+    setMessage({
+      type: "success",
+      text: "Check your email for the sign-in link.",
+    });
+  }
+
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    setMessage(null);
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    setLoading(false);
+    if (error) {
+      setMessage({ type: "error", text: error.message });
+    }
+  }
+
+  const handleBackToSignIn = () => {
+    setMessage(null);
+    setSentToEmail(null);
+  }
+
   return (
     <div className={styles["signin__parent-con"]}>
       <div className={styles["signin__main-con"]}>
         <section className={styles["signin__left-con"]} aria-label="About AI Mock Interview">
-          <div>
-            <div className={styles["signin__logo"]} aria-hidden>
-              <span />
-              <span />
-              <span />
-            </div>
-            <h1 className={styles["signin__headline-text"]}>
-              Practice interviews with AI feedback
-            </h1>
-            <p className={styles["signin__subheadline-text"]}>
-              Record your answers and get instant feedback to improve your technical and behavioral skills.
-            </p>
-            <div className={styles["signin__image-wrapper"]}>
-              {leftImageSrc ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={leftImageSrc} alt={leftImageAlt} />
-              ) : (
-                <div className={styles["signin__image-placeholder"]}>
+          <Image
+            src="/images/Login.png"
+            alt="AI Mock Interview"
+            width={500}
+            height={500}
+          />
+        </section>
+
+        <section className={styles["signin__right-con"]} aria-label="Sign in form">
+          {/* <div className={styles["signin__logo-container"]}>
+            <Image
+              src="/images/logo.svg"
+              alt="Prepify"
+              width={180}
+              height={80}
+              priority
+              className={styles["signin__logo-icon"]}
+            />
+          </div> */}
+
+          <div className={styles["signin__card"]}>
+            {showSuccess ? (
+              <>
+                <div className={styles["signin__success-icon-wrap"]}>
                   <svg
-                    className={styles["signin__image-placeholder-icon"]}
+                    className={styles["signin__success-icon"]}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -72,95 +123,127 @@ export function SignIn({
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d={LAPTOP_ICON_PATH}
+                      strokeWidth={2}
+                      d={ENVELOPE_ICON_PATH}
                     />
                   </svg>
-                  <span className={styles["signin__image-placeholder-title"]}>
-                    AI image for your app
-                  </span>
-                  <span className={styles["signin__image-placeholder-hint"]}>
-                    Add an image via leftImageSrc prop or place your asset here
-                  </span>
                 </div>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className={styles["signin__right-con"]} aria-label="Sign in form">
-          <div className={styles["signin__form-card"]}>
-            <h2 className={styles["signin__title-text"]}>Sign in</h2>
-            <p className={styles["signin__subtitle-text"]}>
-              Use your email or Google to continue to AI Mock Interview
-            </p>
-
-            <div className={styles["signin__social-row"]}>
-              <button
-                type="button"
-                onClick={onGoogleSignIn}
-                disabled={loading}
-                className={styles["signin__social-btn"]}
-                aria-label="Sign in with Google"
-              >
-                <svg className={styles["signin__social-btn-icon"]} viewBox="0 0 24 24" aria-hidden>
-                  {GOOGLE_ICON_PATH}
-                </svg>
-                Google
-              </button>
-            </div>
-
-            <div className={styles["signin__or-divider"]}>
-              <span>Or</span>
-            </div>
-
-            <form onSubmit={onEmailSubmit} className={styles["signin__form"]}>
-              <div className={styles["signin__input-group"]}>
-                <label htmlFor="signin-email" className={styles["signin__label"]}>
-                  Email
-                </label>
-                <input
-                  id="signin-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className={styles["signin__input"]}
-                  disabled={loading}
-                />
-              </div>
-              {message && (
-                <div
-                  className={cn(
-                    styles["signin__message"],
-                    message.type === "error"
-                      ? styles["signin__message--error"]
-                      : styles["signin__message--success"]
-                  )}
-                  role="alert"
+                <h2 className={styles["signin__success-title"]}>Check your email</h2>
+                <p className={styles["signin__success-text"]}>
+                  We&apos;ve sent a sign-in link to
+                </p>
+                <p className={styles["signin__success-email"]}>{sentToEmail}</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleBackToSignIn}
+                  className={styles["signin__back-to-signin-btn"]}
                 >
-                  {message.text}
+                  Back to sign in
+                </Button>
+              </>
+            ) : (
+              <div className={styles["signin__form-card"]}>
+                <h2 className={styles["signin__title-text"]}>Welcome to Prepify</h2>
+                <p className={styles["signin__subtitle-text"]}>
+                  Sign in with your account to continue
+                </p>
+
+                <div className={styles["signin__social-row"]}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleGoogleSignIn}
+                    disabled={loading}
+                    isLoading={loading}
+                    className={styles["signin__social-btn"]}
+                    aria-label="Continue with Google"
+                  >
+                    <svg className={styles["signin__social-btn-icon"]} viewBox="0 0 24 24" aria-hidden>
+                      {GOOGLE_ICON_PATH}
+                    </svg>
+                    Continue with Google
+                  </Button>
                 </div>
-              )}
-              <button
-                type="submit"
-                disabled={loading}
-                className={styles["signin__primary-btn"]}
-              >
-                {loading ? "Sending…" : "Send magic link"}
-              </button>
-            </form>
 
-            <p className={styles["signin__legal"]}>
-              By signing in, you agree to use this app. We’ll send a one-time link to your email.
-            </p>
+                <div className={styles["signin__or-divider"]}>
+                  <span>OR</span>
+                </div>
 
-            <Link href="/" className={styles["signin__back-link"]}>
-              ← Back to home
-            </Link>
+                <form onSubmit={handleEmailSubmit} className={styles["signin__form"]}>
+                  {/* <div className={styles["signin__input-group"]}>
+                    <Label htmlFor="signin-name" className={styles["signin__label"]}>
+                      Display name
+                    </Label>
+                    <Input
+                      id="signin-name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Display name"
+                      className={styles["signin__input"]}
+                      disabled={loading}
+                    />
+                  </div> */}
+                  <div className={styles["signin__input-group"]}>
+                    <Label htmlFor="signin-email" className={styles["signin__label"]}>
+                      Email address
+                    </Label>
+                    <Input
+                      id="signin-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@example.com"
+                      className={styles["signin__input"]}
+                      disabled={loading}
+                    />
+                  </div>
+                  {message && message.type === "error" && (
+                    <div
+                      className={cn(styles["signin__message"], styles["signin__message--error"])}
+                      role="alert"
+                    >
+                      {message.text}
+                    </div>
+                  )}
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={loading}
+                    isLoading={loading}
+                    className={styles["signin__primary-btn"]}
+                  >
+                    {!loading && (
+                      <svg
+                        className={cn(styles["signin__primary-btn-icon"], "size-4")}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d={ENVELOPE_ICON_PATH}
+                        />
+                      </svg>
+                    )}
+                    {loading ? "Sending…" : "Send sign-in link"}
+                  </Button>
+                </form>
+
+                <p className={styles["signin__legal"]}>
+                  We&apos;ll send a one-time link to your email to sign in.
+                </p>
+              </div>
+            )}
           </div>
         </section>
       </div>

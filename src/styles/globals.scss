@@ -1,10 +1,16 @@
 @import './core/index';
 
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/GeistVF.woff");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 html,
 body {
   font-family: "Geist", sans-serif;
   max-width: 100vw;
-  // overflow-x: hidden;
   overscroll-behavior: none;
 }
 
@@ -15,6 +21,8 @@ body {
     background-color 0.5s ease-in,
     color 0.5s ease-in;
   overscroll-behavior: none;
+  padding: 0px;
+  margin: 0px;
 }
 
 table {
@@ -22,16 +30,12 @@ table {
   border-collapse: collapse;
 }
 
-button {
-  font-family: "Geist", sans-serif;
-}
-
 ::-moz-selection {
-  color: black;
-  background: #ffddae;
+  color: var(--selection-text);
+  background: var(--selection-bg);
 }
 
 ::selection {
-  color: black;
-  background: #ffddae;
+  color: var(--selection-text);
+  background: var(--selection-bg);
 }
