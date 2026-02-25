@@ -1,32 +1,23 @@
-/**
- * Interview types and shapes for the app.
- * Use these when you add Supabase tables (e.g. interviews, feedback) or API routes.
- */
-
-export const VALID_INTERVIEW_TYPES = ["technical", "behavioral"] as const;
-export type InterviewType = (typeof VALID_INTERVIEW_TYPES)[number];
-
-export const INTERVIEW_TYPE_LABELS: Record<InterviewType, string> = {
-  technical: "Technical Interview",
-  behavioral: "Behavioral Interview",
-};
-
-export function isInterviewType(value: string): value is InterviewType {
-  return VALID_INTERVIEW_TYPES.includes(value as InterviewType);
+export interface MockInterviewDetails {
+  id: number;
+  job_title: string;
+  job_description: string;
+  experience: number;
+  created_by: string;
+  created_at: string;
+  mock_id: string;
+  level: string;
+  data_res: string;
 }
 
-export type InterviewSession = {
-  id: string;
-  user_id: string;
-  type: InterviewType;
-  question: string;
-  answer: string | null;
-  feedback: string | null;
-  created_at: string;
-};
-
-export type FeedbackPayload = {
+export interface Question {
+  id: number;
   question: string;
   answer: string;
-  type: InterviewType;
-};
+  user_answer: string | null;
+  rating: number;
+  feedback: string | null;
+  created_at: string;
+  created_by: string;
+  mock_id: string;
+}

@@ -23,6 +23,7 @@ import { Loader2 } from "lucide-react";
 import { GeneratedContentResponse } from "@/types/gemini-ai-types";
 import { createClient } from "@/lib/supabase/client";
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from "next/navigation";
 
 export interface StartInterviewDialogProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ export function StartInterviewDialog({
   const [level, setLevel] = useState("begainer");   
   const [loading, setLoading] = useState(false);  
   const supabase = createClient();              
+  const router = useRouter();
 
   const handleCancel = () => {
     onOpenChange?.(false);
@@ -77,12 +79,30 @@ export function StartInterviewDialog({
           })
           .select("mock_id")
           .single();
+
+        const { error: questionsError } = await supabase
+          .from("questions_table")
+          .insert(
+            dataRes.map((question: any) => ({
+              question: question.question,
+              answer: question.answer,
+              mock_id: mockIdValue,
+              created_by: createdBy,
+              user_answer: null,
+              rating: 0,
+              feedback: null,
+              created_at: new Date().toISOString(),
+            }))
+          );
         if (insertError) {
           throw insertError;
         }
+        if (questionsError) {
+          throw questionsError;
+        }
         const mockId = insertedRow?.mock_id ?? mockIdValue;
         console.log("mockId", mockId);
-        // TODO: use mockId (e.g. router.push(`/interview/${mockId}`))
+        router.push(`/start-interview/${mockId}`);
       }
       onOpenChange?.(false);
     } catch (error) {
