@@ -53,5 +53,143 @@
         }
     }
   }
+
+  .interview-container {
+    margin-top: 8px;
+
+    &__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    &__title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-black-color);
+    }
+
+    &__search-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+
+      @media (min-width: 768px) {
+        width: auto;
+      }
+    }
+
+    &__search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-grey-100);
+      pointer-events: none;
+    }
+
+    &__search-input {
+      padding-left: 2.5rem !important;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    &__loader,
+    &__empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-grey-100);
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+
+      @media (min-width: 640px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  .interview-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(145deg, #1e1b2e 0%, #16213e 100%);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    &__rating {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(251, 191, 36, 0.2);
+      color: #fbbf24;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      z-index: 1;
+
+      svg {
+        flex-shrink: 0;
+        fill: currentColor;
+      }
+    }
+
+    &__header {
+      padding-bottom: 0.5rem;
+      padding-right: 80px;
+    }
+
+    &__title {
+      font-size: 1rem;
+      margin: 0;
+      color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    &__meta {
+      margin: 0.25rem 0 0;
+      font-size: 0.8125rem;
+      color: #94a3b8;
+    }
+
+    &__content {
+      flex: 1;
+      padding-top: 0.5rem;
+    }
+
+    &__description {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.15);
+    }
+  }
 }
 

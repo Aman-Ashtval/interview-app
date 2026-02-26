@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth" data-theme="light" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased min-h-dvh overflow-x-hidden`}>
         {children}
-        <Toaster />
+        <Toaster position="top-right" richColors duration={3000} className="bg-white" />
       </body>
     </html>
   );

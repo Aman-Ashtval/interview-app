@@ -7,5 +7,5 @@ export const getPrompt = (jobRole: string, jobDescription: string, yearsOfExperi
 export const getPromptForUserAnswer = (questions: Question[]) : string => {
     return `here I have give you an array of questions and right answer and user_answer
     : ${JSON.stringify(questions)} 
-    you have to evaluate the feedback, ratingand return my data with adding you analyses values in JSON`;
+    you have to evaluate the feedback, ratingand return my data in JSON formate`;
 }

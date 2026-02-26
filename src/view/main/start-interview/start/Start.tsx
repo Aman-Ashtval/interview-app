@@ -14,6 +14,7 @@ import { Question } from '@/types/interview';
 import { getPromptForUserAnswer } from '@/utils/gemini-utils';
 import { getGeminiClient } from '@/lib/gemini/GeminiApi';
 import { GeneratedContentResponse } from '@/types/gemini-ai-types';
+import { useRouter } from 'next/navigation';
 
 const Start = ({interview_id}: {interview_id: string}) => {
     const [allQuestions, setAllQuestions] = useState<Question[]>([]);
@@ -22,6 +23,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const supabase = createClient();
+    const router = useRouter();
 
     const {
         error,
@@ -96,13 +98,23 @@ const Start = ({interview_id}: {interview_id: string}) => {
                     const content = response.candidates[0].content.parts[0].text;
             
                     const extractedStr = content.replace(`\`\`\`json\n`, "").replace(`\n\`\`\``, "");
-                    const dataRes = JSON.parse(extractedStr);
+                    const dataRes = JSON.parse(extractedStr) as Question[];
                     console.log(dataRes);
+                    await supabase.from('questions_table').update(dataRes.map(que => ({
+                        user_answer: que?.user_answer ?? "",
+                        rating: que?.rating ?? "",
+                        feedback: que?.feedback ?? "",
+                    }))).eq('mock_id', interview_id);
+
+                    toast.success('Questions submitted successfully', {position: 'top-right'});
+                    router.push(`/start-interview/${interview_id}/feedback`);
+                }else{
+                    throw new Error('Failed to submit questions');
                 }
             }
         } catch (error) {
             console.error(error);
-            toast.error('Failed to submit questions');
+            toast.error('Failed to submit questions', {position: 'top-right'});
         } finally {
             setIsSubmitting(false);
         }
@@ -191,6 +203,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
                             <Button 
                             variant="secondary"
                             onClick={startSpeechToText}
+                            disabled={isSubmitting}
                             >
                                 <MicIcon size={18} />
                                 Start Recording
@@ -201,7 +214,10 @@ const Start = ({interview_id}: {interview_id: string}) => {
                         (allQuestions[activeIndex]?.user_answer && !isRecording)  &&
                         <Button variant="primary" onClick={() => {
                             setAllQuestions(prev => prev.map((question, index) => index === activeIndex ? { ...question, user_answer: "" } : question));
-                        }}>
+                            setResults([]);
+                        }}
+                        disabled={isSubmitting}
+                        >
                             re-answer
                         </Button>
                     }                 
@@ -216,7 +232,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
                             stopSpeechToText();
                         }
                     }}
-                    disabled={activeIndex === 0}
+                    disabled={activeIndex === 0 || isSubmitting}
                     >
                         <ArrowLeftIcon size={18} />
                         Previous
