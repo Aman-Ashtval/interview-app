@@ -1,56 +1,106 @@
+// Breakpoints: mobile < 768px | tablet 768–1024px | desktop > 1024px
+
+/* Full-height scroll container so navbar stays sticky (same as feedback page) */
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding: 20px 60px;
-  gap: 20px;
+  height: 100vh;
+  padding: 1rem;
+  gap: 1.25rem;
   overflow-y: auto;
+  padding-bottom: 100px;
+
+  @media (min-width: 768px) {
+    padding: 1.25rem 1.5rem;
+    gap: 1.5rem;    
+    padding-bottom: 100px;
+  }
+
+  @media (min-width: 1025px) {
+    padding: 20px 60px;
+    gap: 20px;    
+    padding-bottom: 100px;
+  }
 
   .welcome-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    gap: 10px;
+    gap: 1rem;
 
-    .text-container{
-        flex-grow: 1;
-        min-width: 60%;
-        padding: 22px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        text-align: justify;
-
-        
-
-        .title {
-            font-size: 32px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 0;
-        }
-    
-        .description {
-            font-size: 16px;
-            color: var(--text-gray);
-            margin: 0;
-        }        
+    @media (min-width: 1025px) {
+      flex-direction: row;
+      gap: 10px;
     }
 
-    .image-container{
-        flex-grow: 1;
-        min-width: 40%;
-        display: flex;
-        justify-content: flex-end;
+    .text-container {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: justify;
 
-        .robot-image {
-            min-width: 300px;
-            min-height: 400px;
-            max-width: 400px;
-            max-height: 500px;
-            object-fit: cover;
-            mix-blend-mode: multiply;
-            margin-right: 100px;
+      @media (min-width: 768px) {
+        padding: 1.25rem;
+      }
+
+      @media (min-width: 1025px) {
+        min-width: 60%;
+        padding: 22px;
+      }
+
+      .title {
+        font-size: clamp(1.5rem, 4vw, 32px);
+        font-weight: bold;
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      .description {
+        font-size: 1rem;
+        color: var(--text-gray);
+        margin: 0;
+      }
+    }
+
+    .image-container {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (min-width: 1025px) {
+        justify-content: flex-end;
+        min-width: 40%;
+      }
+
+      .robot-image {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        min-height: 280px;
+        max-height: 380px;
+        object-fit: cover;
+        mix-blend-mode: multiply;
+
+        @media (min-width: 640px) {
+          max-width: 320px;
+          min-height: 320px;
+          max-height: 420px;
         }
+
+        @media (min-width: 1025px) {
+          min-width: 300px;
+          min-height: 400px;
+          max-width: 400px;
+          max-height: 500px;
+          margin-right: 100px;
+        }
+      }
     }
   }
 

@@ -189,7 +189,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
                         />
                     )
                 }
-                <div className="flex justify-center gap-2">
+                <div className={styles["webcam-actions"]}>
                     {
                         isRecording ? (
                             <Button 
@@ -222,7 +222,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
                         </Button>
                     }                 
                 </div>
-                <div className='flex justify-end items-center gap-2 w-full mt-auto'>
+                <div className={styles["webcam-nav"]}>
                     <Button 
                     variant="primary" 
                     onClick={() => {

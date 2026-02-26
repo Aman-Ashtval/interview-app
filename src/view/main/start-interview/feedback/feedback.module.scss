@@ -1,14 +1,16 @@
+// Breakpoints: mobile < 480px | small 480–768px | desktop ≥ 768px
 $feedback-bp-sm: 480px;
 $feedback-bp-md: 768px;
 
 .feedback {
-    min-height: 100vh;
-    padding: 1.5rem 1rem 3rem;
-    max-width: 900px;
-    min-width: 60%;
-    margin: 0 auto;
-    background: var(--background-color);
-    overflow-y: scroll;
+  height: 100vh;
+  width: 100%;
+  max-width: 900px;
+  padding: 1.5rem 1rem 3rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background: var(--background-color);
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     display: none;

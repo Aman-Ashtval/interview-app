@@ -97,13 +97,15 @@ export function Questions() {
         <h1 className={styles.title}>Your questions</h1>
         <div className={styles.headerActions}>
           {questions.length > 0 && (
-            <PDFGenerator
-              document={<QuestionPdfDoc 
-                questions={questions}  
+            <span className={styles.headerPdfBtn}>
+              <PDFGenerator
+                document={<QuestionPdfDoc 
+                  questions={questions}  
                 />}
-              title="My-Questions-And-Answers"
-              buttonText="Download PDF"
-            />
+                title="My-Questions-And-Answers"
+                buttonText="Download PDF"
+              />
+            </span>
           )}
           <div className={styles.searchWrap}>
           <Search className={styles.searchIcon} size={20} aria-hidden />
