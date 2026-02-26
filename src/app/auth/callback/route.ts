@@ -19,7 +19,10 @@ export async function GET(request: NextRequest) {
           },
           setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
             cookiesToSet.forEach(({ name, value, options }) =>
-              redirectResponse.cookies.set(name, value, options)
+              redirectResponse.cookies.set(name, value, {
+                ...options,
+                path: "/", // required so cookies are sent on redirect to /dashboard
+              })
             );
           },
         },

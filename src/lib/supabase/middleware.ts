@@ -40,7 +40,7 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   if (!user && isProtectedPath(pathname)) {
-    const signInUrl = new URL("/auth/signin", request.url);
+    const signInUrl = new URL("/auth/sign-in", request.url);
     signInUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(signInUrl);
   }
