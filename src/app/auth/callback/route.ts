@@ -2,12 +2,15 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = new URL(request.url);
+  // Use nextUrl so origin is correct in production (Vercel), not internal localhost
+  const { searchParams } = request.nextUrl;
+  const origin = request.nextUrl.origin;
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/dashboard";
 
   if (code) {
-    const redirectResponse = NextResponse.redirect(`${origin}${next}`);
+    const redirectUrl = `${origin}${next}`;
+    const redirectResponse = NextResponse.redirect(redirectUrl);
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,

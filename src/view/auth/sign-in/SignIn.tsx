@@ -2,7 +2,7 @@
 
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { SignInMessage } from "@/types/auth/sign-in";
@@ -47,10 +47,7 @@ export function SignIn() {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
-        // data: name.trim()
-        //   ? { full_name: name.trim(), name: name.trim() }
-        //   : undefined,
+        emailRedirectTo: `${window?.location?.origin}/auth/callback?next=/dashboard`,
       },
     });
     setLoading(false);

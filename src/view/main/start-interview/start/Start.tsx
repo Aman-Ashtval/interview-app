@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './start.module.scss';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
@@ -47,7 +47,6 @@ const Start = ({interview_id}: {interview_id: string}) => {
     };
 
     useEffect(() => {
-        console.log(results);
         if(results.length > 0) {
             const item = allQuestions[activeIndex];
             if(item) {
@@ -63,7 +62,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
         const fetchQuestions = async () => {
             try{
                 setIsLoading(true);
-                const {data, error} = await supabase.from('questions_table').select('*').eq('mock_id', interview_id);
+                const {data, error} = await supabase.from('questions_table').select('*').eq('mock_id', interview_id).order("id", { ascending: true });
                 if(error) {
                     throw error;
                 }
@@ -99,12 +98,20 @@ const Start = ({interview_id}: {interview_id: string}) => {
             
                     const extractedStr = content.replace(`\`\`\`json\n`, "").replace(`\n\`\`\``, "");
                     const dataRes = JSON.parse(extractedStr) as Question[];
-                    console.log(dataRes);
-                    await supabase.from('questions_table').update(dataRes.map(que => ({
-                        user_answer: que?.user_answer ?? "",
-                        rating: que?.rating ?? "",
-                        feedback: que?.feedback ?? "",
-                    }))).eq('mock_id', interview_id);
+                    // Update each question by its id (Supabase .update() takes one object per call)
+                    await Promise.all(
+                      dataRes.map((que) =>
+                        supabase
+                          .from("questions_table")
+                          .update({
+                            user_answer: que?.user_answer ?? "",
+                            rating: que?.rating ?? "",
+                            feedback: que?.feedback ?? "",
+                          })
+                          .eq("id", que.id)
+                          .eq("mock_id", interview_id)
+                      )
+                    );
 
                     toast.success('Questions submitted successfully', {position: 'top-right'});
                     router.push(`/start-interview/${interview_id}/feedback`);
@@ -119,6 +126,11 @@ const Start = ({interview_id}: {interview_id: string}) => {
             setIsSubmitting(false);
         }
     };
+
+    const answerText = useMemo(() => {
+        console.log(activeIndex, allQuestions[activeIndex]?.user_answer, "activeIndex");
+        return allQuestions[activeIndex]?.user_answer  ? allQuestions[activeIndex]?.user_answer : "your answer.........";
+    }, [allQuestions, activeIndex]);
 
 
     const renderQuestions = () => {
@@ -136,17 +148,16 @@ const Start = ({interview_id}: {interview_id: string}) => {
                 </div>
                 <div>
                     <h3 className='text-md font-bold text-black'>Your Answer:</h3> 
-                    <Textarea 
-                    className='rounded' 
-                    placeholder='your answer here...'  
-                    onChange={(e) => {}}
-                    value={allQuestions[activeIndex]?.user_answer ?? ""}
-                    rows={5}
-                    />
+                    <div 
+                    className='text-sm text-justify text-gray-500 font-medium border rounded-xl p-3 bg-slate-200 h-40 overflow-y-auto'>
+                        {
+                            answerText
+                        }
+                    </div>
                     <div className='flex items-center w-full mt-2'>
                         <Volume2 
                         className='w-4 h-4 text-gray-500 cursor-pointer' 
-                        onClick={() => speakQuestion(allQuestions[activeIndex]?.answer ?? "")}
+                        onClick={() => speakQuestion(allQuestions[activeIndex]?.user_answer ?? "")}
                         />
                     </div>
                 </div>
@@ -199,7 +210,7 @@ const Start = ({interview_id}: {interview_id: string}) => {
                                 <MicOffIcon size={18} />
                                 Stop Recording
                             </Button>
-                        ) : (
+                        ) : !allQuestions[activeIndex]?.user_answer && (
                             <Button 
                             variant="secondary"
                             onClick={startSpeechToText}
