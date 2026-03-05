@@ -137,7 +137,9 @@ const Start = ({interview_id}: {interview_id: string}) => {
         return (
             <div className={styles['question-container']}>
                 <div className='flex flex-col gap-2'>
-                    <h3 className='text-lg font-bold text-black'>Question {activeIndex + 1}:</h3>
+                    <h3 className='text-lg font-bol'
+                    style={{ color: "var(--text-primary-color)" }}
+                    >Question {activeIndex + 1}:</h3>
                     <p className='text-sm text-gray-500 font-medium'>
                         {allQuestions[activeIndex]?.question}
                     </p>
@@ -147,9 +149,13 @@ const Start = ({interview_id}: {interview_id: string}) => {
                     />
                 </div>
                 <div>
-                    <h3 className='text-md font-bold text-black'>Your Answer:</h3> 
+                    <h3 className='text-md font-bold'
+                    style={{ color: "var(--text-primary-color)" }}
+                    >Your Answer:</h3> 
                     <div 
-                    className='text-sm text-justify text-gray-500 font-medium border rounded-xl p-3 bg-slate-200 h-40 overflow-y-auto'>
+                    className='text-sm text-justify text-gray-500 font-medium border rounded-xl p-3 h-40 overflow-y-auto'
+                    style={{ backgroundColor:  "transparent" }}
+                    >
                         {
                             answerText
                         }

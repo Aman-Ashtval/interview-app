@@ -20,7 +20,8 @@ import {
 import { cn } from "@/utils";
 import styles from "./navbar.module.scss";
 import { Button } from "@/components/ui/button/button";
-import { LogOutIcon, Menu } from "lucide-react";
+import { LogOutIcon, Menu, MoonIcon, SunIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -36,6 +37,7 @@ function isActive(pathname: string, href: string) {
 export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const {theme, setTheme} = useTheme();
   const supabase = createClient();
 
   const signOut = async () => {
@@ -71,7 +73,6 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       className={cn(
-                        navigationMenuTriggerStyle(),
                         styles["navbar-link"],
                         active && styles["navbar-link-active"]
                       )}
@@ -85,6 +86,10 @@ export function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
       </nav>
+
+      <Button variant={theme === "light" ? "default" : "secondary"} onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+        {theme === "light" ? <MoonIcon size={20} aria-hidden /> : <SunIcon size={20} aria-hidden />}
+      </Button>
 
       {/* Desktop: logout button */}
       <div className={styles["navbar-right"]}>
